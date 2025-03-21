@@ -1,7 +1,6 @@
 # Terraform GCP Test Image Builder
 
-[![Build and Push Docker Images](https://github.com/nazq/tf_test_tools/actions/workflows/build.yml/badge.svg)](https://github.com/nazq/tf_test_tools/actions/workflows/build.yml)
-[![Docker Image Size (go1.24.1)](https://img.shields.io/docker/image-size/ghcr.io/nazq/tf_test_tools/tf_test_tools:go1.24.1)](https://ghcr.io/nazq/tf_test_tools/tf_test_tools)
+[![Build and Push Docker Images](https://github.com/nazq/tf_test_tools/actions/workflows/main.yml/badge.svg)](https://github.com/nazq/tf_test_tools/actions/workflows/main.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 This repository provides lightweight Docker images specifically designed for Terraform testing on Google Cloud Platform (GCP). It leverages a matrix build in GitHub Actions to generate images for multiple Go versions, ensuring compatibility and flexibility. It includes:
