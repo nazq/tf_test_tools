@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - main
+    # Exclude pushes that result from a PR merge.
+    # This prevents duplicate runs when a PR is closed.
+    paths-ignore:
+      - '**/MERGE_COMMIT'
   pull_request:
     types: [closed]
     branches:
