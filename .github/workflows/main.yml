@@ -2,12 +2,9 @@ name: Build and Push Terraform GCP Test Images
 
 on:
   push:
-    branches:
-      - main
+    branches: [ master, main ]
   pull_request:
-    types: [closed]
-    branches:
-      - main
+    branches: [ master, main ]
 
 jobs:
   build_and_push:
