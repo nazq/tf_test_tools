@@ -34,7 +34,7 @@ jobs:
       - name: Build and push Docker image
         run: |
           ./build.sh ${{ matrix.go_version }}
-          docker push ghcr.io/${{ github.repository }}/terraform-gcp-test:go${{ matrix.go_version }}
+          docker push ghcr.io/${{ github.repository }}/tf_test_tools:go${{ matrix.go_version }}
 
       - name: Cleanup Dockerfiles
         run: |
