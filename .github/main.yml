@@ -1,0 +1,36 @@
+name: Build and Push Terraform GCP Test Images
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_and_push:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # Add/modify versions as needed
+        go_version: ["1.23.7", "1.24.1"] 
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        run: |
+          ./build.sh ${{ matrix.go_version }}
+          docker push ghcr.io/${{ github.repository }}/terraform-gcp-test:go${{ matrix.go_version }}
+
+      - name: Cleanup Dockerfiles
+        run: |
+          rm Dockerfile.go${{ matrix.go_version }}
