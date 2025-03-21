@@ -62,6 +62,8 @@ RUN echo "Installing GolangCI-Lint..." \\
     && go clean -modcache -cache \\
     && rm -rf \$GOPATH/pkg \$GOPATH/src \$GOPATH/bin
 
+RUN curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+
 # ---- FINAL STAGE: Minimal Runtime Image ----
 FROM golang:${go_version}-alpine
 
@@ -77,6 +79,10 @@ RUN apk add --no-cache \\
 COPY --from=builder /go/bin/golangci-lint /usr/local/bin/golangci-lint
 COPY --from=builder /usr/local/bin/terraform /usr/local/bin/terraform
 COPY --from=builder /usr/local/google-cloud-sdk /usr/local/google-cloud-sdk
+COPY --from=builder /usr/local/bin/tflint /usr/local/bin/tflint
+RUN tflint --init
+
+CMD ["bash"]
 EOF
 }
 
