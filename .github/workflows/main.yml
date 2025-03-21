@@ -1,4 +1,4 @@
-name: Build and Push Terraform GCP Test Images
+name: Build and Push images
 
 on:
   push:
@@ -13,6 +13,10 @@ on:
 jobs:
   build_and_push:
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+
     strategy:
       matrix:
         # Add/modify versions as needed
@@ -34,7 +38,8 @@ jobs:
       - name: Build and push Docker image
         run: |
           ./build.sh ${{ matrix.go_version }}
-          docker push ghcr.io/${{ github.repository }}/terraform-gcp-test:go${{ matrix.go_version }}
+          docker tag tf_test_tools:go${{ matrix.go_version }} ghcr.io/${{ github.repository }}/tf_test_tools:go${{ matrix.go_version }}
+          docker push ghcr.io/${{ github.repository }}/tf_test_tools:go${{ matrix.go_version }}
 
       - name: Cleanup Dockerfiles
         run: |
